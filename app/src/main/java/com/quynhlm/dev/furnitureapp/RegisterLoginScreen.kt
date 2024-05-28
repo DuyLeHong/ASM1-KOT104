@@ -44,10 +44,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun RegisterScreen(navController : NavController) {
@@ -171,16 +174,19 @@ fun RegisterScreen(navController : NavController) {
     }
 }
 
+//var nav: NavController? = null
+//@Preview
 @Composable
-fun LoginScreen(navController: NavController){
+fun LoginScreen(navController : NavController){
+//    val navController = rememberNavController()
     val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(15.dp)
-            .background(Color.White),
+            .background(Color.White)
+            .padding(20.dp),
         verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
         Column(
             modifier = Modifier
@@ -219,8 +225,8 @@ fun LoginScreen(navController: NavController){
         Column(
             modifier = Modifier
                 .background(Color.White)
-                .fillMaxWidth()
-                .height(450.dp)
+                .fillMaxWidth(0.85f)
+                .height(400.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .shadow(elevation = 4.dp, spotColor = colorResource(id = R.color.graySecond)),
         ) {
@@ -305,23 +311,37 @@ fun LoginScreen(navController: NavController){
                     modifier = Modifier
                         .padding(7.dp)
                         .width(285.dp)
-                        .height(50.dp).shadow(elevation = 5.dp)
+                        .height(50.dp)
+                        .shadow(elevation = 5.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .background(Color(0xFF242424))
                         .clickable(onClick = {
-                            if(username.isEmpty() || password.isEmpty()){
+                            if (username.isEmpty() || password.isEmpty()) {
                                 Toast
-                                    .makeText(context, "Username Empty And PassWord Empty", Toast.LENGTH_SHORT)
+                                    .makeText(
+                                        context,
+                                        "Username Empty And PassWord Empty",
+                                        Toast.LENGTH_SHORT
+                                    )
                                     .show()
-                            }else{
-                                if(!username.trim().isEmpty() && !password.trim().isEmpty()) {
+                            } else {
+                                if (!username
+                                        .trim()
+                                        .isEmpty() && !password
+                                        .trim()
+                                        .isEmpty()
+                                ) {
                                     Toast
                                         .makeText(context, "Login SuccessFully", Toast.LENGTH_SHORT)
                                         .show()
                                     navController.navigate("home")
-                                }else{
+                                } else {
                                     Toast
-                                        .makeText(context, "Login Not SuccessFully", Toast.LENGTH_SHORT)
+                                        .makeText(
+                                            context,
+                                            "Login Not SuccessFully",
+                                            Toast.LENGTH_SHORT
+                                        )
                                         .show()
                                 }
                             }
