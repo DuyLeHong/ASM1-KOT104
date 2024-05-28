@@ -33,7 +33,7 @@ enum class ROUTE_NAME {
 fun AppNavHost(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = "welcome") {
+    NavHost(navController = navController, startDestination = ROUTE_NAME.welcome.name) {
         composable(ROUTE_NAME.welcome.name) { WelComeScreen(navController) }
         composable(ROUTE_NAME.login.name) { LoginScreen(navController) }
         composable(ROUTE_NAME.home.name) { FurnitureApp(navController) }

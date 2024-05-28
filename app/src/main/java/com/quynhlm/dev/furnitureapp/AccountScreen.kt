@@ -35,10 +35,6 @@ import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import com.quynhlm.dev.furnitureapp.R
 
-class AccountScreen : ComponentActivity(){
-
-}
-
 @Composable
 fun MethodAccount(title : String , message : String , click : () -> Unit){
     Row (modifier = Modifier

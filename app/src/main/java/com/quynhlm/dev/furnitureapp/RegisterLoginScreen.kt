@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
@@ -54,13 +56,14 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun RegisterScreen(navController : NavController) {
+//    val navController = rememberNavController()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(13.dp)
-            .background(Color.White),
-        verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .background(Color.White)
+            .padding(13.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start,
     ) {
 
         Column(
@@ -104,8 +107,8 @@ fun RegisterScreen(navController : NavController) {
         }
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(530.dp)
+                .fillMaxWidth(0.9f)
+                .height(500.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .shadow(elevation = 4.dp, spotColor = colorResource(id = R.color.graySecond))
         ) {
@@ -374,3 +377,120 @@ fun LoginScreen(navController : NavController){
         }
     }
 }
+
+@Composable
+fun InputRow(title: String) {
+    Column {
+        Text(
+            text = title,
+            color = colorResource(id = R.color.graySecond),
+            fontFamily = FontFamily(Font(R.font.nunitosans_7pt_condensed_light)),
+            fontWeight = FontWeight.Bold,
+            fontSize = 17.sp
+        )
+        CustomTextField()
+    }
+}
+
+@Composable
+fun CustomTextField() {
+    var username by remember { mutableStateOf("") }
+    TextField(
+        value = username,
+        onValueChange = {
+
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color("#E0E0E0".toColorInt()),
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.Gray,
+            unfocusedIndicatorColor = Color.Gray,
+        ),
+    )
+}
+
+@Composable
+fun StyledText() {
+    val annotatedText = buildAnnotatedString {
+        withStyle(
+            style = ParagraphStyle(
+                lineHeight = 50.sp
+            )
+        ) {
+            withStyle(
+                style = SpanStyle(
+                    color = Color.Gray,
+                    fontSize = 27.sp,
+                    fontWeight = FontWeight(500),
+                    fontFamily = FontFamily(Font(R.font.gelasio_bold))
+                )
+            ) {
+                append("Hello ! \n")
+            }
+            withStyle(
+                style = SpanStyle(
+                    color = Color.Black,
+                    fontSize = 27.sp,
+                    fontWeight = FontWeight(600),
+                    fontFamily = FontFamily(Font(R.font.gelasio_bold))
+                )
+            ) {
+                append("WELCOME BACK")
+            }
+        }
+    }
+
+    BasicText(
+        text = annotatedText,
+        modifier = Modifier.width(300.dp),
+    )
+}
+
+@Composable
+fun PasswordTextField() {
+    var password by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
+
+    TextField(
+        value = password,
+        onValueChange = { password = it },
+        singleLine = true,
+        modifier = Modifier
+            .fillMaxWidth(),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color("#E0E0E0".toColorInt()),
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.Gray,
+            unfocusedIndicatorColor = Color.Gray,
+        ),
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        trailingIcon = {
+            val image =
+                if (passwordVisible)
+                    painterResource(id = R.drawable.hide)
+                else
+                    painterResource(id = R.drawable.view)
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(painter = image, contentDescription = null, modifier = Modifier.size(20.dp))
+            }
+        }
+    )
+}
+
+@Composable
+fun InputRowPass(title: String) {
+    Column {
+        Text(
+            text = title,
+            color = colorResource(id = R.color.graySecond),
+            fontFamily = FontFamily(Font(R.font.nunitosans_7pt_condensed_light)),
+            fontWeight = FontWeight.Bold,
+            fontSize = 17.sp
+        )
+        PasswordTextField()
+    }
+}
+

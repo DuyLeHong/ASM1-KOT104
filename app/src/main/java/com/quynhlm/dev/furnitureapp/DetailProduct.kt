@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 
@@ -187,6 +190,91 @@ fun DetailsProduct(navController: NavController) {
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun Custom(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(390.dp)
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box {
+
+                }
+                Image(
+                    painter = painterResource(id = R.drawable.imagedetails),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(330.dp)
+                        .fillMaxHeight()
+                        .shadow(
+                            elevation = 2.dp,
+                            shape = RoundedCornerShape(bottomStart = 52.dp)
+                        )
+                        .zIndex(1f),
+                    contentScale = ContentScale.FillBounds
+                )
+            }
+        }
+        Box(
+            modifier = Modifier
+                .width(130.dp)
+
+                .fillMaxHeight()
+        ) {
+            Column (modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally){
+                Row(
+                    modifier = Modifier
+                        .size(45.dp)
+                        .clickable { navController.navigateUp() }
+                        .background(color = Color.White, RoundedCornerShape(14.dp))
+                        .shadow(
+                            elevation = 0.dp,
+                            shape = RoundedCornerShape(14.dp),
+                            clip = true
+                        ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.arrowback),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                Column (modifier = Modifier
+                    .height(192.dp)
+                    .shadow(
+                        elevation = 4.dp,
+                        shape = RoundedCornerShape(40.dp),
+                        clip = true
+                    )
+                    .width(64.dp)
+                    .background(Color.White, shape = RoundedCornerShape(40.dp)),
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Image(painter = painterResource(id = R.drawable.color1), contentDescription = null, modifier = Modifier.size(34.dp))
+                    Image(painter = painterResource(id = R.drawable.color2), contentDescription = null, modifier = Modifier.size(34.dp))
+                    Image(painter = painterResource(id = R.drawable.color3), contentDescription = null, modifier = Modifier.size(34.dp))
+                }
+
+                Row{
+
+                }
+            }
+
         }
     }
 }
